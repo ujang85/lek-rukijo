@@ -1,80 +1,72 @@
 <?php
+use yii\helpers\Html;
 
-/* @var $this \yii\web\View */
-/* @var $content string */
+/* (C) Copyright 2019 Heru Arief Wijaya (http://belajararief.com/) untuk Indonesia.*/
 
-use backend\assets\AppAsset;
-use common\widgets\Alert;
-use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+backend\assets\AppAsset::register($this);
+\hoaaah\sbadmin2\assets\SbAdmin2Asset::register($this);
 
-AppAsset::register($this);
+$directoryAsset = Yii::$app->assetManager->getPublishedUrl('@bower/startbootstrap-sb-admin-2');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>" class="h-100">
+<html lang="<?= Yii::$app->language ?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
+    <meta charset="<?= Yii::$app->charset ?>"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <?php $this->registerCsrfMetaTags() ?>
+    <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="d-flex flex-column h-100">
+<?php
+/**/
+?>
+<body id="page-top">
+
 <?php $this->beginBody() ?>
 
-<header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
-</header>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</main>
+        <?= $this->render(
+            'sidebar.php',
+            ['directoryAsset' => $directoryAsset]
+        ) ?>
 
-<footer class="footer mt-auto py-3 text-muted">
-    <div class="container">
-        <p class="float-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <?= $this->render(
+                    'header.php',
+                    ['directoryAsset' => $directoryAsset]
+                ) ?>
+
+                <?= $this->render(
+                    'content.php',
+                    ['content' => $content, 'directoryAsset' => $directoryAsset]
+                ) ?>
+
+            </div>
+            <!-- End of Main Content -->
+
+
+            <?= $this->render(
+                'footer.php',
+                ['content' => $content, 'directoryAsset' => $directoryAsset]
+            ) ?>
+
+        </div>
+        <!-- End of Content Wrapper -->
+
     </div>
-</footer>
+    <!-- End of Page Wrapper -->
+
 
 <?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage();
+<?php $this->endPage() ?>

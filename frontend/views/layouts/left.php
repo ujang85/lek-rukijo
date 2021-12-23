@@ -19,21 +19,19 @@ use yii\helpers\Html;
         <?= Menu::widget([
             'items' => [
                 ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['/']],
-                ['label' => 'About', 'icon' => 'table_chart', 'url' => ['site/about']],
-                ['label' => 'Unit Kerja', 'icon' => 'web', 'url' => ['unitkerja/index']],
-                ['label' => 'Javascript', 'icon' => 'code', 'url' => ['/javascript']],
-                ['label' => 'Notifications', 'icon' => 'notifications', 'url' => ['/notifications']],
-                ['label' => 'Tabs', 'icon' => 'tab', 'url' => ['/tabs']],
-                ['label' => 'Typography', 'icon' => 'text_format', 'url' => ['/typography']],
-                ['label' => 'Pages', 'icon' => 'text_format', 'items' => [
-                    ['label' => 'Login', 'icon' => 'text_format', 'url' => ['/site/login']],
-                    ['label' => 'Error', 'icon' => 'text_format', 'url' => ['/error']],
-                    ['label' => 'Registration', 'icon' => 'text_format', 'items' => [
-                        ['label' => 'Login', 'icon' => 'text_format', 'url' => ['/site/login']],
-                        ['label' => 'Error', 'icon' => 'text_format', 'url' => ['/error']],
-                        ['label' => 'Registration', 'icon' => 'text_format', 'url' => ['/registration']],
+                ['label' => 'Informasi', 'icon' => 'table_chart', 'url' => ""],
+                ['label' => 'Data Pegawai', 'icon' => 'text_format', 'items' => [
+                    ['label' => 'Biodata', 'icon' => 'text_format', 'url' => ['/site/login']],
+                    ['label' => 'Personal Data', 'icon' => 'text_format', 'items' => [
+                        ['label' => 'Pendidikan', 'icon' => 'text_format', 'url' => ""],
+                        ['label' => 'STR', 'icon' => 'text_format', 'url' => ""],
+                        ['label' => 'SIP', 'icon' => 'text_format', 'url' => ""],
                     ]],
                 ]],
+                ['label' => 'Layanan Pegawai', 'icon' => 'text_format', 'items' => [
+                    ['label' => 'Aduan Presensi', 'icon' => 'text_format', 'url' => ['/site/login']],
+                ]],
+
             ]
         ]); ?>    
     </div>

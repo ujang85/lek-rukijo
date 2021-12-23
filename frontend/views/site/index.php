@@ -3,7 +3,7 @@
 use rce\material\widgets\Card;
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'LEK RUKIJO';
 ?>
 <div class="site-index">
 
