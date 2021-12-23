@@ -7,7 +7,8 @@ $this->title = 'Administrator LEK RUKIJO';
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">SELAMAT DATANG </h1>
+        <h1 class="display-4">SELAMAT DATANG</h1>
+        <h3 class="display-4">RSUD KOTA YOGYAKARTA</h3>
 
         <p class="lead">Ini adalah halaman administrator untuk Layanan Kepegawaian dan SDM</p>
 
