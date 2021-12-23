@@ -8,7 +8,6 @@ $this->title = 'Administrator LEK RUKIJO';
 
     <div class="jumbotron text-center bg-transparent">
         <h1 class="display-4">SELAMAT DATANG </h1>
-        <p class="lead"><h2>Bumil cantiikk..</h2></p>
 
         <p class="lead">Ini adalah halaman administrator untuk Layanan Kepegawaian dan SDM</p>
 
