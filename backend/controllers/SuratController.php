@@ -3,18 +3,19 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\Unitkerja;
-use app\models\UnitkerjaSearch;
+use app\models\Surat;
+use app\models\SuratSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\web\UploadedFile;
 
 /**
- * UnitkerjaController implements the CRUD actions for Unitkerja model.
+ * SuratController implements the CRUD actions for Surat model.
  */
-class UnitkerjaController extends Controller
+class SuratController extends Controller
 {
     /**
      * @inheritdoc
@@ -33,12 +34,12 @@ class UnitkerjaController extends Controller
     }
 
     /**
-     * Lists all Unitkerja models.
+     * Lists all Surat models.
      * @return mixed
      */
     public function actionIndex()
     {    
-        $searchModel = new UnitkerjaSearch();
+        $searchModel = new SuratSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +50,7 @@ class UnitkerjaController extends Controller
 
 
     /**
-     * Displays a single Unitkerja model.
+     * Displays a single Surat model.
      * @param integer $id
      * @return mixed
      */
@@ -59,7 +60,7 @@ class UnitkerjaController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Unitkerja #".$id,
+                    'title'=> "Surat #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -74,7 +75,7 @@ class UnitkerjaController extends Controller
     }
 
     /**
-     * Creates a new Unitkerja model.
+     * Creates a new Surat model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -82,7 +83,7 @@ class UnitkerjaController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Unitkerja();  
+        $model = new Surat();  
 
         if($request->isAjax){
             /*
@@ -91,7 +92,7 @@ class UnitkerjaController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Create new Unitkerja",
+                    'title'=> "Create new Surat",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -99,18 +100,39 @@ class UnitkerjaController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load($request->post())){
+
+                    $kodefile=$model->no_surat.'-'.$model->tgl_upload;
+                    $file = UploadedFile::getInstance($model, 'file_url');
+
+                    if (!empty($file)) {                   
+                     $model->tgl_upload = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
+                     $model->no_surat = $model->no_surat;
+                     $model->tgl_surat = $model->tgl_surat;
+                     $model->jenis_surat = $model->jenis_surat;
+                     $model->perihal = $model->perihal;
+                     $model->keterangan = $model->keterangan;
+                     
+                     $model->bulan = Yii::$app->formatter->asDate($model->tglsekarang, 'php:m');
+                     $model->tahun = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y');
+                  //   $model->id_user = Yii::$app->user->identity->id;
+
+                     $file->saveAs(Yii::getAlias('surat/') . $kodefile.'.'.$file->extension);
+                 //    $file->saveAs(Yii::getAlias('surat_masuk/') . '123tes'.'.'.$file->extension);
+                     $model->file_url = $kodefile.'.'.$file->extension;
+                     $model->save(FALSE);
+                }
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new Unitkerja",
-                    'content'=>'<span class="text-success">Create Unitkerja success</span>',
+                    'title'=> "Create new Surat",
+                    'content'=>'<span class="text-success">Create Surat success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Create new Unitkerja",
+                    'title'=> "Create new Surat",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -135,7 +157,7 @@ class UnitkerjaController extends Controller
     }
 
     /**
-     * Updates an existing Unitkerja model.
+     * Updates an existing Surat model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -153,7 +175,7 @@ class UnitkerjaController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update Unitkerja #".$id,
+                    'title'=> "Update Surat #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -163,7 +185,7 @@ class UnitkerjaController extends Controller
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Unitkerja #".$id,
+                    'title'=> "Surat #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -172,7 +194,7 @@ class UnitkerjaController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update Unitkerja #".$id,
+                    'title'=> "Update Surat #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -195,7 +217,7 @@ class UnitkerjaController extends Controller
     }
 
     /**
-     * Delete an existing Unitkerja model.
+     * Delete an existing Surat model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -223,7 +245,7 @@ class UnitkerjaController extends Controller
     }
 
      /**
-     * Delete multiple existing Unitkerja model.
+     * Delete multiple existing Surat model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -254,15 +276,15 @@ class UnitkerjaController extends Controller
     }
 
     /**
-     * Finds the Unitkerja model based on its primary key value.
+     * Finds the Surat model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Unitkerja the loaded model
+     * @return Surat the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Unitkerja::findOne($id)) !== null) {
+        if (($model = Surat::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[Unitkerja]].
+ * This is the ActiveQuery class for [[Surat]].
  *
- * @see Unitkerja
+ * @see Surat
  */
-class UnitkerjaQuery extends \yii\db\ActiveQuery
+class SuratQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class UnitkerjaQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Unitkerja[]|array
+     * @return Surat[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class UnitkerjaQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Unitkerja|array|null
+     * @return Surat|array|null
      */
     public function one($db = null)
     {

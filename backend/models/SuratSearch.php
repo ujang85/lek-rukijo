@@ -1,17 +1,16 @@
 <?php
 
-//namespace backend\models;
 namespace app\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Unitkerja;
+use app\models\Surat;
 
 /**
- * UnitkerjaSearch represents the model behind the search form about `app\models\Unitkerja`.
+ * SuratSearch represents the model behind the search form about `app\models\Surat`.
  */
-class UnitkerjaSearch extends Unitkerja
+class SuratSearch extends Surat
 {
     /**
      * @inheritdoc
@@ -19,8 +18,8 @@ class UnitkerjaSearch extends Unitkerja
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['nama_unit'], 'safe'],
+            [['id', 'bulan', 'tahun', 'id_user'], 'integer'],
+            [['no_surat', 'tgl_upload', 'tgl_surat', 'perihal', 'file_url', 'keterangan', 'jenis_surat'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class UnitkerjaSearch extends Unitkerja
      */
     public function search($params)
     {
-        $query = Unitkerja::find();
+        $query = Surat::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,9 +57,18 @@ class UnitkerjaSearch extends Unitkerja
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'tgl_upload' => $this->tgl_upload,
+            'tgl_surat' => $this->tgl_surat,
+            'bulan' => $this->bulan,
+            'tahun' => $this->tahun,
+            'id_user' => $this->id_user,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_unit', $this->nama_unit]);
+        $query->andFilterWhere(['like', 'no_surat', $this->no_surat])
+            ->andFilterWhere(['like', 'perihal', $this->perihal])
+            ->andFilterWhere(['like', 'file_url', $this->file_url])
+            ->andFilterWhere(['like', 'keterangan', $this->keterangan])
+            ->andFilterWhere(['like', 'jenis_surat', $this->jenis_surat]);
 
         return $dataProvider;
     }

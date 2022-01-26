@@ -3,21 +3,51 @@ use yii\helpers\Url;
 
 return [
     [
-        'class' => 'kartik\grid\CheckboxColumn',
-        'width' => '20px',
-    ],
-    [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
+        'header' => 'no',
     ],
-        // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'id',
-    // ],
+        
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'nama_unit',
+        'attribute'=>'no_surat',
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'tgl_upload',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'tgl_surat',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'perihal',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'file_url',
+    ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'bulan',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'tahun',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'keterangan',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'id_user',
+    // ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'jenis_surat',
+    // ],
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,

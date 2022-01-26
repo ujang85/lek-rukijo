@@ -80,7 +80,7 @@ HTML
             'items' => [
                 [
                     'label' => 'Surat Tugas',
-                    'url' => ['/menu21'], //  Array format of Url to, will be not used if have an items
+                    'url' => ['/surat'], //  Array format of Url to, will be not used if have an items
                 ],
                 [
                     'label' => 'Surat Edaran',

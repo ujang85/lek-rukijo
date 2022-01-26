@@ -4,10 +4,10 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Unitkerja */
+/* @var $model app\models\Surat */
 
 ?>
-<div class="unitkerja-create">
+<div class="surat-create">
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
