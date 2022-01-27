@@ -10,4 +10,13 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
     ],
+    'modules' => [
+          /*  'mimin' => [
+                'class' => '\hscstudio\mimin\Module',
+            ], */
+            'gridview' =>  [
+                'class' => '\kartik\grid\Module'
+            ], 
+            
+        ],
 ];
