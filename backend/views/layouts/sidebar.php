@@ -84,15 +84,15 @@ HTML
                 ],
                 [
                     'label' => 'Surat Edaran',
-                    'url' => ['/menu22'], //  Array format of Url to, will be not used if have an items
+                    'url' => ['/surat/indexedaran'], //  Array format of Url to, will be not used if have an items
                 ],
                 [
                     'label' => 'Surat Keterangan',
-                    'url' => ['/menu22'], //  Array format of Url to, will be not used if have an items
+                    'url' => ['/surat/indexketerangan'], //  Array format of Url to, will be not used if have an items
                 ],
                 [
                     'label' => 'Surat Keluar',
-                    'url' => ['/menu22'], //  Array format of Url to, will be not used if have an items
+                    'url' => ['/surat/indexkeluar'], //  Array format of Url to, will be not used if have an items
                 ],
             ]
         ],

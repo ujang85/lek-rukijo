@@ -21,6 +21,7 @@ use Yii;
  */
 class Surat extends \yii\db\ActiveRecord
 {
+    public $pdffile;
     /**
      * {@inheritdoc}
      */
@@ -40,6 +41,7 @@ class Surat extends \yii\db\ActiveRecord
             [['no_surat'], 'string', 'max' => 70],
             [['perihal', 'keterangan'], 'string', 'max' => 200],
             [['file_url', 'jenis_surat'], 'string', 'max' => 100],
+         //   [['pdffile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'pdf'],
         ];
     }
 
@@ -54,7 +56,7 @@ class Surat extends \yii\db\ActiveRecord
             'tgl_upload' => 'Tgl Upload',
             'tgl_surat' => 'Tgl Surat',
             'perihal' => 'Perihal',
-            'file_url' => 'File Url',
+            'file_url' => 'File Surat',
             'bulan' => 'Bulan',
             'tahun' => 'Tahun',
             'keterangan' => 'Keterangan',

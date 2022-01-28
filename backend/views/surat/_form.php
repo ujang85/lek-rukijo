@@ -35,8 +35,17 @@ $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]);
         ],
         ]
     ]);
+    echo Form::widget([
+        'model'=>$model,
+        'form'=>$form,
+        'columns'=>1,
+        'compactGrid'=>true,
+        'attributes'=>[       // 2 column layout
+            'perihal'=>['type'=>Form::INPUT_TEXTAREA, 'options'=>['placeholder'=>'Isi perihal surat..']]
+        ]
+    ]);
     echo $form->field($model, 'file_url')->widget(FileInput::classname(), [
-    'options' => ['accept' => 'image/*'],
+    'options' => ['accept' => 'pdf/*'],
 ]);
     
 ?>

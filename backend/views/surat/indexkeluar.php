@@ -10,7 +10,7 @@ use hoaaah\ajaxcrud\BulkButtonWidget;
 /* @var $searchModel backend\models\SuratSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Surat Tugas';
+$this->title = 'Surat Keluar';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -18,7 +18,7 @@ CrudAsset::register($this);
 ?>
 <br>
     <p>
-        <?= Html::a('<i class="glyphicon glyphicon-plus">  Tambah Data</i>', ['create'],
+        <?= Html::a('<i class="glyphicon glyphicon-plus">  Tambah Data</i>', ['createkeluar'],
                     ['role'=>'modal-remote','title'=> 'Tambah Data','class'=>'btn btn-info btn-xs']) ?>
     </p>
 </br>

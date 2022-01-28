@@ -41,14 +41,43 @@ class SuratController extends Controller
     {    
         $searchModel = new SuratSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->query->andFilterWhere(['jenis_surat' =>'SURAT TUGAS']);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
-
+    public function actionIndexedaran()
+    {    
+        $searchModel = new SuratSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['jenis_surat' =>'SURAT EDARAN']);
+        return $this->render('indexedaran', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndexketerangan()
+    {    
+        $searchModel = new SuratSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['jenis_surat' =>'SURAT KETERANGAN']);
+        return $this->render('indexketerangan', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndexkeluar()
+    {    
+        $searchModel = new SuratSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['jenis_surat' =>'SURAT KELUAR']);
+        return $this->render('indexkeluar', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Surat model.
      * @param integer $id
@@ -73,6 +102,7 @@ class SuratController extends Controller
             ]);
         }
     }
+
 
     /**
      * Creates a new Surat model.
@@ -102,25 +132,24 @@ class SuratController extends Controller
                 ];         
             }else if($model->load($request->post())){
 
-                    $kodefile=$model->no_surat.'-'.$model->tgl_upload;
+                    
                     $file = UploadedFile::getInstance($model, 'file_url');
-
+    
                     if (!empty($file)) {                   
                      $model->tgl_upload = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
                      $model->no_surat = $model->no_surat;
                      $model->tgl_surat = $model->tgl_surat;
-                     $model->jenis_surat = $model->jenis_surat;
+                     $model->jenis_surat ='SURAT TUGAS';
                      $model->perihal = $model->perihal;
-                     $model->keterangan = $model->keterangan;
-                     
+                     $model->keterangan = $model->keterangan;                     
                      $model->bulan = Yii::$app->formatter->asDate($model->tglsekarang, 'php:m');
                      $model->tahun = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y');
-                  //   $model->id_user = Yii::$app->user->identity->id;
-
+                     $model->id_user = Yii::$app->user->identity->id;
+                     $kodefile=$model->no_surat.'-'.$model->tgl_upload;
                      $file->saveAs(Yii::getAlias('surat/') . $kodefile.'.'.$file->extension);
-                 //    $file->saveAs(Yii::getAlias('surat_masuk/') . '123tes'.'.'.$file->extension);
                      $model->file_url = $kodefile.'.'.$file->extension;
-                     $model->save(FALSE);
+                     $model->save();
+                   
                 }
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
@@ -155,7 +184,228 @@ class SuratController extends Controller
         }
        
     }
+    public function actionCreateedaran()
+    {
+        $request = Yii::$app->request;
+        $model = new Surat();  
 
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($request->isGet){
+                return [
+                    'title'=> "Create new Surat",
+                    'content'=>$this->renderAjax('create_edaran', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
+                ];         
+            }else if($model->load($request->post())){
+
+                    
+                    $file = UploadedFile::getInstance($model, 'file_url');
+    
+                    if (!empty($file)) {                   
+                     $model->tgl_upload = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
+                     $model->no_surat = $model->no_surat;
+                     $model->tgl_surat = $model->tgl_surat;
+                     $model->jenis_surat ='SURAT EDARAN';
+                     $model->perihal = $model->perihal;
+                     $model->keterangan = $model->keterangan;                     
+                     $model->bulan = Yii::$app->formatter->asDate($model->tglsekarang, 'php:m');
+                     $model->tahun = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y');
+                     $model->id_user = Yii::$app->user->identity->id;
+                     $kodefile=$model->no_surat.'-'.$model->tgl_upload;
+                     $file->saveAs(Yii::getAlias('surat/') . $kodefile.'.'.$file->extension);
+                     $model->file_url = $kodefile.'.'.$file->extension;
+                     $model->save();
+                   
+                }
+                return [
+                    'forceReload'=>'#crud-datatable-pjax',
+                    'title'=> "Create new Surat",
+                    'content'=>'<span class="text-success">Create Surat success</span>',
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+        
+                ];         
+            }else{           
+                return [
+                    'title'=> "Create new Surat",
+                    'content'=>$this->renderAjax('create_edaran', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
+                ];         
+            }
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create_edaran', [
+                    'model' => $model,
+                ]);
+            }
+        }
+       
+    }
+    public function actionCreatekeluar()
+    {
+        $request = Yii::$app->request;
+        $model = new Surat();  
+
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($request->isGet){
+                return [
+                    'title'=> "Create new Surat",
+                    'content'=>$this->renderAjax('create_keluar', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
+                ];         
+            }else if($model->load($request->post())){
+
+                    
+                    $file = UploadedFile::getInstance($model, 'file_url');
+    
+                    if (!empty($file)) {                   
+                     $model->tgl_upload = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
+                     $model->no_surat = $model->no_surat;
+                     $model->tgl_surat = $model->tgl_surat;
+                     $model->jenis_surat ='SURAT KELUAR';
+                     $model->perihal = $model->perihal;
+                     $model->keterangan = $model->keterangan;                     
+                     $model->bulan = Yii::$app->formatter->asDate($model->tglsekarang, 'php:m');
+                     $model->tahun = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y');
+                     $model->id_user = Yii::$app->user->identity->id;
+                     $kodefile=$model->no_surat.'-'.$model->tgl_upload;
+                     $file->saveAs(Yii::getAlias('surat/') . $kodefile.'.'.$file->extension);
+                     $model->file_url = $kodefile.'.'.$file->extension;
+                     $model->save();
+                   
+                }
+                return [
+                    'forceReload'=>'#crud-datatable-pjax',
+                    'title'=> "Create new Surat",
+                    'content'=>'<span class="text-success">Create Surat success</span>',
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+        
+                ];         
+            }else{           
+                return [
+                    'title'=> "Create new Surat",
+                    'content'=>$this->renderAjax('create_keluar', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
+                ];         
+            }
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create_keluar', [
+                    'model' => $model,
+                ]);
+            }
+        }
+       
+    }
+    public function actionCreateketerangan()
+    {
+        $request = Yii::$app->request;
+        $model = new Surat();  
+
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($request->isGet){
+                return [
+                    'title'=> "Create new Surat",
+                    'content'=>$this->renderAjax('create_keterangan', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
+                ];         
+            }else if($model->load($request->post())){
+
+                    
+                    $file = UploadedFile::getInstance($model, 'file_url');
+    
+                    if (!empty($file)) {                   
+                     $model->tgl_upload = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
+                     $model->no_surat = $model->no_surat;
+                     $model->tgl_surat = $model->tgl_surat;
+                     $model->jenis_surat ='SURAT KETERANGAN';
+                     $model->perihal = $model->perihal;
+                     $model->keterangan = $model->keterangan;                     
+                     $model->bulan = Yii::$app->formatter->asDate($model->tglsekarang, 'php:m');
+                     $model->tahun = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y');
+                     $model->id_user = Yii::$app->user->identity->id;
+                     $kodefile=$model->no_surat.'-'.$model->tgl_upload;
+                     $file->saveAs(Yii::getAlias('surat/') . $kodefile.'.'.$file->extension);
+                     $model->file_url = $kodefile.'.'.$file->extension;
+                     $model->save();
+                   
+                }
+                return [
+                    'forceReload'=>'#crud-datatable-pjax',
+                    'title'=> "Create new Surat",
+                    'content'=>'<span class="text-success">Create Surat success</span>',
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+        
+                ];         
+            }else{           
+                return [
+                    'title'=> "Create new Surat",
+                    'content'=>$this->renderAjax('create_keterangan', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+        
+                ];         
+            }
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create_keterangan', [
+                    'model' => $model,
+                ]);
+            }
+        }
+       
+    }
     /**
      * Updates an existing Surat model.
      * For ajax request will return json object

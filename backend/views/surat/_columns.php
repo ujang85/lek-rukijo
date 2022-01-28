@@ -21,6 +21,10 @@ return [
         'attribute'=>'tgl_surat',
     ],
     [
+         'class'=>'\kartik\grid\DataColumn',
+         'attribute'=>'jenis_surat',
+    ],
+    [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'perihal',
     ],
@@ -44,10 +48,7 @@ return [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'id_user',
     // ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'jenis_surat',
-    // ],
+    // 
     [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
