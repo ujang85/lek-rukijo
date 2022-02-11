@@ -29,7 +29,7 @@ use yii\helpers\Html;
                     ]],
                 ]],
                 ['label' => 'Layanan Pegawai', 'icon' => 'text_format', 'items' => [
-                    ['label' => 'Aduan Presensi', 'icon' => 'text_format', 'url' => ['/site/login']],
+                    ['label' => 'Aduan Presensi', 'icon' => 'text_format', 'url' => ['/aduan-presensi/index']],
                 ]],
 
             ]
