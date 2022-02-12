@@ -68,7 +68,7 @@ HTML
                 ],
                 [
                     'label' => 'Verifikasi Aduan Presensi',
-                    'url' => ['/menu22'], //  Array format of Url to, will be not used if have an items
+                    'url' => ['/aduan-presensi/index'], //  Array format of Url to, will be not used if have an items
                 ],
             ]
         ],

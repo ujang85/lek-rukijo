@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
 use frontend\models\AduanPresensi;
@@ -40,7 +40,7 @@ class AduanPresensiController extends Controller
     {    
         $searchModel = new AduanPresensiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['user_pengadu' => Yii::$app->user->identity->id]);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -99,14 +99,7 @@ class AduanPresensiController extends Controller
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
         
                 ];         
-            }else if($model->load(Yii::$app->request->post())){
-                                
-                     $model->tgl_aduan = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
-                     $model->isi_aduan = $model->isi_respon;
-                     $model->keterangan= $model->isi_respon;
-                     $model->status_respon =0;
-                     $model->user_pengadu = Yii::$app->user->identity->id;
-                     $model->save();
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Create new AduanPresensi",
@@ -167,7 +160,13 @@ class AduanPresensiController extends Controller
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load($request->post()) && $model->save()){
+            }else if($model->load(Yii::$app->request->post())){
+                                
+                     $model->tgl_respon = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
+                     $model->isi_respon = $model->isi_respon;
+                     $model->status_respon =1;
+                     $model->user_perespon = Yii::$app->user->identity->id;
+                     $model->save();
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "AduanPresensi #".$id,
