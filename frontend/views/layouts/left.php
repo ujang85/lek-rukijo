@@ -20,6 +20,7 @@ use yii\helpers\Html;
             'items' => [
                 ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['/']],
                 ['label' => 'Informasi', 'icon' => 'table_chart', 'url' => ""],
+                ['label' => 'UBAH PASSWORD','icon' => 'fingerprint', 'url' => ['/user2/ubahpassword']],
                 ['label' => 'Data Pegawai', 'icon' => 'text_format', 'items' => [
                     ['label' => 'Biodata', 'icon' => 'text_format', 'url' => ['/site/login']],
                     ['label' => 'Personal Data', 'icon' => 'text_format', 'items' => [

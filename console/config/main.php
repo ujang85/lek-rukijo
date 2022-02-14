@@ -33,12 +33,12 @@ return [
         ],
     ],
     'modules' => [
-          /*  'mimin' => [
+          / 'mimin' => [
                 'class' => '\hscstudio\mimin\Module',
             ], 
             'gridview' =>  [
                 'class' => '\kartik\grid\Module'
-            ], */
+            ], 
             
         ],
     'params' => $params,

@@ -7,17 +7,16 @@ use hoaaah\ajaxcrud\CrudAsset;
 use hoaaah\ajaxcrud\BulkButtonWidget;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\AduanPresensiSearch */
+/* @var $searchModel app\models\User2Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Aduan Presensi';
+$this->title = 'Setting Hak Akses User';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
 
 ?>
-    
-<div class="aduan-presensi-index">
+<div class="user2-index">
     <div id="ajaxCrudDatatable">
         <?=GridView::widget([
             'id'=>'crud-datatable',
@@ -30,8 +29,9 @@ CrudAsset::register($this);
             'condensed' => true,
             'responsive' => true,          
             'panel' => [
-                'type' => 'danger', 
-                'heading' => '<i class="glyphicon glyphicon-list"></i> Aduan Presensi',                        
+                'type' => 'primary', 
+                'heading' => '<i class="glyphicon glyphicon-list"></i> User',
+                        
                         '<div class="clearfix"></div>',
             ]
         ])?>

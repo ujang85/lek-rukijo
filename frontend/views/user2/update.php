@@ -2,13 +2,13 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
-/* @var $model app\models\AduanPresensi */
-
+/* @var $model app\models\User2 */
 ?>
-<div class="aduan-presensi-create">
+<div class="user2-update">
+
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+
 </div>

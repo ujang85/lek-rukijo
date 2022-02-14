@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use Yii;
-use frontend\models\AduanPresensi;
-use frontend\models\AduanPresensiSearch;
+use frontend\models\User2;
+use frontend\models\User2Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,9 +12,9 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * AduanPresensiController implements the CRUD actions for AduanPresensi model.
+ * User2Controller implements the CRUD actions for User2 model.
  */
-class AduanPresensiController extends Controller
+class User2Controller extends Controller
 {
     /**
      * @inheritdoc
@@ -26,21 +26,21 @@ class AduanPresensiController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
-                    'bulkdelete' => ['post'],
+                    'bulk-delete' => ['post'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all AduanPresensi models.
+     * Lists all User2 models.
      * @return mixed
      */
     public function actionIndex()
     {    
-        $searchModel = new AduanPresensiSearch();
+        $searchModel = new User2Search();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->query->andFilterWhere(['id' => Yii::$app->user->identity->id]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -49,7 +49,7 @@ class AduanPresensiController extends Controller
 
 
     /**
-     * Displays a single AduanPresensi model.
+     * Displays a single User2 model.
      * @param integer $id
      * @return mixed
      */
@@ -59,7 +59,7 @@ class AduanPresensiController extends Controller
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "AduanPresensi #".$id,
+                    'title'=> "User2 #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -74,7 +74,7 @@ class AduanPresensiController extends Controller
     }
 
     /**
-     * Creates a new AduanPresensi model.
+     * Creates a new User2 model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -82,7 +82,7 @@ class AduanPresensiController extends Controller
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new AduanPresensi();  
+        $model = new User2();  
 
         if($request->isAjax){
             /*
@@ -91,7 +91,7 @@ class AduanPresensiController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Input Aduan Presensi",
+                    'title'=> "Create new User2",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -102,15 +102,15 @@ class AduanPresensiController extends Controller
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Create new AduanPresensi",
-                    'content'=>'<span class="text-success">Input Aduan Presensi success</span>',
+                    'title'=> "Create new User2",
+                    'content'=>'<span class="text-success">Create User2 success</span>',
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
         
                 ];         
             }else{           
                 return [
-                    'title'=> "Input Aduan Presensi",
+                    'title'=> "Create new User2",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -124,7 +124,7 @@ class AduanPresensiController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_aduan]);
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
@@ -134,57 +134,8 @@ class AduanPresensiController extends Controller
        
     }
 
-    public function actionUpdateSS($id)
-    {
-        $request = Yii::$app->request;
-        $model = $this->findModel($id);       
-
-        if($request->isAjax){
-            /*
-            *   Process for ajax request
-            */
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if($request->isGet){
-                return [
-                    'title'=> "Update AduanPresensi #".$id,
-                    'content'=>$this->renderAjax('update', [
-                        'model' => $model,
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];         
-            }else if($model->load(Yii::$app->request->post())){
-                                
-                     $model->tgl_respon = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
-                     $model->isi_respon = $model->isi_respon;
-                     $model->status_respon =1;
-                     $model->unit =1;
-                     $model->user_perespon = Yii::$app->user->identity->id;
-                     $model->save();
-                 return [
-                    'title'=> "Update AduanPresensi #".$id,
-                    'content'=>$this->renderAjax('update', [
-                        'model' => $model,
-                    ]),
-                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
-                ];        
-            }
-        }else{
-            /*
-            *   Process for non-ajax request
-            */
-            if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_aduan]);
-            } else {
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
-            }
-        }
-    }
     /**
-     * Updates an existing AduanPresensi model.
+     * Updates an existing User2 model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -202,25 +153,17 @@ class AduanPresensiController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Update AduanPresensi #".$id,
+                    'title'=> "Update User2 #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
                     'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
                 ];         
-            }else if($model->load(Yii::$app->request->post())){
-                                
-                     $model->tgl_respon = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
-                     $model->isi_respon = $model->isi_respon;
-                     $model->status_respon =1;
-                     $model->unit =1;
-                     $model->user_perespon = Yii::$app->user->identity->id;
-                     $model->save();
-            //         var_dump($model->isi_respon);
+            }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "AduanPresensi #".$id,
+                    'title'=> "User2 #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -229,7 +172,7 @@ class AduanPresensiController extends Controller
                 ];    
             }else{
                  return [
-                    'title'=> "Update AduanPresensi #".$id,
+                    'title'=> "Update User2 #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -242,7 +185,7 @@ class AduanPresensiController extends Controller
             *   Process for non-ajax request
             */
             if ($model->load($request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_aduan]);
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
                     'model' => $model,
@@ -251,8 +194,40 @@ class AduanPresensiController extends Controller
         }
     }
 
+    public function actionUbah($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if (!empty($model->new_password)) {
+                $model->setPassword($model->new_password);
+            }
+            $model->status = $model->status==1?10:0;
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'User berhasil diupdate');
+            } else {
+                Yii::$app->session->setFlash('error', 'User gagal diupdate');
+            }
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            $model->status = $model->status==10?1:0;
+            return $this->render('editpassword', [
+                'model' => $model,
+            ]);
+        }
+    }
+    public function actionUbahpassword()
+    {
+        $searchModel = new User2Search();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['id' => Yii::$app->user->identity->id]);
+        return $this->render('ubahpassword', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
-     * Delete an existing AduanPresensi model.
+     * Delete an existing User2 model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -280,13 +255,13 @@ class AduanPresensiController extends Controller
     }
 
      /**
-     * Delete multiple existing AduanPresensi model.
+     * Delete multiple existing User2 model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionBulkdelete()
+    public function actionBulkDelete()
     {        
         $request = Yii::$app->request;
         $pks = explode(',', $request->post( 'pks' )); // Array or selected records primary keys
@@ -311,15 +286,15 @@ class AduanPresensiController extends Controller
     }
 
     /**
-     * Finds the AduanPresensi model based on its primary key value.
+     * Finds the User2 model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AduanPresensi the loaded model
+     * @return User2 the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AduanPresensi::findOne($id)) !== null) {
+        if (($model = User2::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
