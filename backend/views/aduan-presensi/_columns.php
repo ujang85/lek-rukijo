@@ -41,10 +41,10 @@ return [
                     'pluginOptions' => ['allowClear' => true],
                 ],
             ],
-    // [
-        // 'class'=>'\kartik\grid\DataColumn',
-        // 'attribute'=>'isi_respon',
-    // ],
+     [
+         'class'=>'\kartik\grid\DataColumn',
+         'attribute'=>'isi_respon',
+     ],
     // [
         // 'class'=>'\kartik\grid\DataColumn',
         // 'attribute'=>'user_perespon',

@@ -102,8 +102,8 @@ class AduanPresensiController extends Controller
             }else if($model->load(Yii::$app->request->post())){
                                 
                      $model->tgl_aduan = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
-                     $model->isi_aduan = $model->isi_respon;
-                     $model->keterangan= $model->isi_respon;
+                     $model->isi_aduan = $model->isi_aduan;
+                     $model->keterangan= $model->keterangan;
                      $model->status_respon =0;
                      $model->user_pengadu = Yii::$app->user->identity->id;
                      $model->save();

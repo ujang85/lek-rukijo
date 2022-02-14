@@ -18,7 +18,7 @@ class AduanPresensiSearch extends AduanPresensi
     public function rules()
     {
         return [
-            [['id_aduan', 'user_pengadu', 'status_respon', 'unit'], 'integer'],
+            [['user_perespon','id_aduan', 'user_pengadu', 'status_respon', 'unit'], 'integer'],
             [['tgl_aduan', 'isi_aduan', 'keterangan', 'isi_respon', 'user_perespon', 'tgl_respon'], 'safe'],
         ];
     }
@@ -66,8 +66,8 @@ class AduanPresensiSearch extends AduanPresensi
 
         $query->andFilterWhere(['like', 'isi_aduan', $this->isi_aduan])
             ->andFilterWhere(['like', 'keterangan', $this->keterangan])
-            ->andFilterWhere(['like', 'isi_respon', $this->isi_respon])
-            ->andFilterWhere(['like', 'user_perespon', $this->user_perespon]);
+            ->andFilterWhere(['like', 'isi_respon', $this->isi_respon]);
+            
 
         return $dataProvider;
     }

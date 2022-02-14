@@ -134,6 +134,55 @@ class AduanPresensiController extends Controller
        
     }
 
+    public function actionUpdateSS($id)
+    {
+        $request = Yii::$app->request;
+        $model = $this->findModel($id);       
+
+        if($request->isAjax){
+            /*
+            *   Process for ajax request
+            */
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if($request->isGet){
+                return [
+                    'title'=> "Update AduanPresensi #".$id,
+                    'content'=>$this->renderAjax('update', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                ];         
+            }else if($model->load(Yii::$app->request->post())){
+                                
+                     $model->tgl_respon = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
+                     $model->isi_respon = $model->isi_respon;
+                     $model->status_respon =1;
+                     $model->unit =1;
+                     $model->user_perespon = Yii::$app->user->identity->id;
+                     $model->save();
+                 return [
+                    'title'=> "Update AduanPresensi #".$id,
+                    'content'=>$this->renderAjax('update', [
+                        'model' => $model,
+                    ]),
+                    'footer'=> Html::button('Close',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                                Html::button('Save',['class'=>'btn btn-primary','type'=>"submit"])
+                ];        
+            }
+        }else{
+            /*
+            *   Process for non-ajax request
+            */
+            if ($model->load($request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_aduan]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        }
+    }
     /**
      * Updates an existing AduanPresensi model.
      * For ajax request will return json object
@@ -165,8 +214,10 @@ class AduanPresensiController extends Controller
                      $model->tgl_respon = Yii::$app->formatter->asDate($model->tglsekarang, 'php:Y-m-d');
                      $model->isi_respon = $model->isi_respon;
                      $model->status_respon =1;
+                     $model->unit =1;
                      $model->user_perespon = Yii::$app->user->identity->id;
                      $model->save();
+            //         var_dump($model->isi_respon);
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "AduanPresensi #".$id,

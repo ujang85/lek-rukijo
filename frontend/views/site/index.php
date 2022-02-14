@@ -17,20 +17,18 @@ $this->title = 'LEK RUKIJO';
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-4">
                 <?php Card::begin([
                     'header'=>'header-icon',
                     'type'=>'card-stats',
                     'icon'=>'<i class="material-icons">content_copy</i>',
                     'color'=>'danger',
-                    'title'=>'Aduan Presensi',
-                    'subtitle'=>'Layanan',
+                    'subtitle'=>'<h5><a href="index.php?r=aduan-presensi/index">ADUAN PRESENSI</a></h5>',
                     'footer'=>'<div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                           
+                                <i class="material-icons">face</i> Layanan Presensi
                           </div>',
                 ]); Card::end(); ?>
-            </div>
+                </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <?php Card::begin([
                     'header'=>'header-icon',
@@ -38,9 +36,8 @@ $this->title = 'LEK RUKIJO';
                     'icon'=>'<i class="material-icons">store</i>',
                     'color'=>'warning',
                     'title'=>'PERSONAL FILE',
-                    'subtitle'=>'FILE',
                     'footer'=>'<div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">date_range</i> Personal File Pegawai
                           </div>',
                 ]); Card::end(); ?>
             </div>
@@ -54,7 +51,7 @@ $this->title = 'LEK RUKIJO';
                     'title'=>'+245 chat',
                     'subtitle'=>'Sosial Media',
                     'footer'=>'<div class="stats">
-                            <i class="material-icons">update</i> Just Updated
+                            <i class="material-icons">update</i>Layanan Surat-Menyurat
                           </div>',
                 ]); Card::end(); ?>
             </div>

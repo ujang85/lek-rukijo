@@ -35,10 +35,10 @@ class AduanPresensi extends \yii\db\ActiveRecord
     {
         return [
             [['tgl_aduan', 'tgl_respon'], 'safe'],
-            [['user_pengadu', 'status_respon', 'unit'], 'integer'],
+            [['user_perespon','user_pengadu', 'status_respon', 'unit'], 'integer'],
             [['isi_aduan'], 'string', 'max' => 150],
             [['keterangan', 'isi_respon'], 'string', 'max' => 100],
-            [['user_perespon'], 'string', 'max' => 90],
+        //    [['user_perespon'], 'string', 'max' => 90],
         ];
     }
 
@@ -60,7 +60,12 @@ class AduanPresensi extends \yii\db\ActiveRecord
             'unit' => Yii::t('app', 'Unit'),
         ];
     }
-
+    public function getTglsekarang()
+    {
+        $sql1 = "SELECT DATE_FORMAT(now(), '%Y-%m-%d') as tglsekarang";
+        $tglsekarang=Yii::$app->db->createCommand($sql1)->queryScalar(); 
+        return $tglsekarang;
+    }
     /**
      * {@inheritdoc}
      * @return AduanPresensiQuery the active query used by this AR class.
