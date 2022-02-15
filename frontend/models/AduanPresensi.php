@@ -36,8 +36,8 @@ class AduanPresensi extends \yii\db\ActiveRecord
         return [
             [['tgl_aduan', 'tgl_respon'], 'safe'],
             [['user_perespon','user_pengadu', 'status_respon', 'unit'], 'integer'],
-            [['isi_aduan'], 'string', 'max' => 150],
-            [['keterangan', 'isi_respon'], 'string', 'max' => 100],
+            [['isi_aduan'], 'string', 'max' => 200],
+            [['keterangan', 'isi_respon'], 'string', 'max' => 200],
         //    [['user_perespon'], 'string', 'max' => 90],
         ];
     }
