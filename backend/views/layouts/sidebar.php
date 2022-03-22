@@ -36,6 +36,10 @@ HTML
             // 'subMenuTitle' => 'Menu 3 Item', // optional only when have submenutitle, if not exist will not have subMenuTitle
             'items' => [
                 [
+                    'label' => 'Data User',
+                    'url' => ['/user2/ubahpassword'], //  Array format of Url to, will be not used if have an items
+                ],
+                [
                     'label' => 'Data Unit kerja',
                     'url' => ['/unitkerja'], //  Array format of Url to, will be not used if have an items
                 ],
